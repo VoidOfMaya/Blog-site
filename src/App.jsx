@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import {TopNav} from './components/topnav/topnav.jsx'
+import { PostCard } from './components/postCard/post.jsx';
 import './App.css'
 
 function App() {
@@ -26,8 +26,10 @@ function App() {
 
   return (
     <>
-      <h1>Blogies</h1>
-      
+      <TopNav />
+      <PostCard key={1} postName={'Hello World!, this is a test post'} date={'01-01-2025'} />
+      <PostCard key={2} postName={'Why cats make the perfect Ai agents'} date={'01-01-2025'}/>
+      <PostCard key={3} postName={'Some random post with no substance'} date={'01-01-2025'}/>
     </>
   )
 }
