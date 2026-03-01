@@ -5,7 +5,7 @@ import './App.css'
 
 function App() {
 
-  const [blogData, setBlogData] = useState();
+  const [blogData, setBlogData] = useState({posts: []});
   const [loading, setLoading] = useState(true);
     useEffect(()=>{
     fetch('https://blog-api-vdtu.onrender.com')
@@ -23,13 +23,21 @@ function App() {
 
 
   },[])
-
+function populatePosts(data){
+  return data.posts.map(post=>{
+    return(
+      <PostCard key={post.id} postName={post.title} date={post.publishedAt} />
+    )
+  })
+}
   return (
     <>
       <TopNav />
-      <PostCard key={1} postName={'Hello World!, this is a test post'} date={'01-01-2025'} />
-      <PostCard key={2} postName={'Why cats make the perfect Ai agents'} date={'01-01-2025'}/>
-      <PostCard key={3} postName={'Some random post with no substance'} date={'01-01-2025'}/>
+
+      <div className='postContainer'>
+        {populatePosts(blogData)}
+      </div>
+
     </>
   )
 }

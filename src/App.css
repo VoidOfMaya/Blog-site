@@ -40,3 +40,12 @@
 .read-the-docs {
   color: #888;
 }
+.postContainer{
+
+  border-radius: 20px;
+  border-bottom: 2px solid black;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto;
+  gap: 10px;
+}
