@@ -1,45 +1,21 @@
 import { useState, useEffect } from 'react'
 import {TopNav} from './components/topnav/topnav.jsx'
-import { PostCard } from './components/postCard/post.jsx';
+
 import './App.css'
 import { Outlet } from 'react-router-dom';
 
 function App() {
+  const [user, setUser]= useState();
+  const [postId,setPostId] = useState('home')
 
-  const [blogData, setBlogData] = useState({posts: []});
-  const [loading, setLoading] = useState(true);
-    useEffect(()=>{
-    fetch('https://blog-api-vdtu.onrender.com')
-    .then(response=>{
-      if(response.status >= 400) {
-          throw new Error('A server error has occured error code: ' + response.status )
-      }
-      return response.json();
-      })
-    .then( data =>{
-      setBlogData(data)
-    })
-    .catch(error => console.error(error))
-    .finally(()=> {setLoading(false)});
+  const updateRoute =(id)=>{
+    setPostId(id)
+  }
 
-
-  },[])
-function populatePosts(data){
-  return data.posts.map(post=>{
-    return(
-      <PostCard 
-          key={post.id} 
-          id={post.id}
-          postName={post.title} 
-          date={post.publishedAt}
-        />
-    )
-  })
-}
   return (
     <>
-      <TopNav/>
-      <Outlet />
+      <TopNav route={postId}/>
+      <Outlet context={{updateRoute}}/>
 
     </>
   )

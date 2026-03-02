@@ -3,10 +3,10 @@ import style from './topnav.module.css';
 import { useState } from "react";
 
 
-function TopNav(){
+function TopNav({route}){
     return(
         <div className={style.topnav}>
-            <h1 className={style.title}>DevLog</h1>
+            <h1 className={style.title}>DevLog <div className={style.titleRout}>/ {route}</div></h1>
             <div className={style.NavLinks}>
                 <NavLink to={'/'}>home</NavLink>
             </div>

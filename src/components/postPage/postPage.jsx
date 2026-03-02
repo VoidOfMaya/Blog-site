@@ -29,7 +29,12 @@ function PostPage(){
 
     },[])   
     const postObj = data.post[0];
-
+    const newDate =new Date(postObj.updatedAt).toLocaleDateString("en-US", {
+        weekday: "short",   // Mon, Tue, ...
+        year: "numeric",    // 2026
+        month: "short",     // Mar
+        day: "numeric"      // 2
+    });
     if(loading){
         return <Loading />
     }
@@ -38,13 +43,7 @@ function PostPage(){
             <div className={style.postContainer}>
                 <div className={style.postHeader}>
                     <h1>{postObj.title}</h1> 
-                    <h6>{postObj.updatedAt.toLocaleString('en-GB', {
-                                    day: '2-digit',
-                                    month: 'short',
-                                    year: 'numeric',
-                                    hour: '2-digit',
-                                    minute: '2-digit'
-                                })}</h6>  
+                    <h6>{newDate}</h6>  
                 </div>
                 
                 <p>{postObj.content}</p>

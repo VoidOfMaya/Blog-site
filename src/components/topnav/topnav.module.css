@@ -14,6 +14,10 @@
     flex: 3;
     text-align: start;
 }
+.titleRout{
+    display: inline;
+    color: rgb(176, 176, 177);
+}
 .NavLinks{
     flex: 1;
 }

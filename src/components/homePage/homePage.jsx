@@ -1,6 +1,7 @@
 import { Loading } from "../loading/load";
 import { useState, useEffect } from "react";
 import { PostCard } from "../postCard/post";
+import style from "./homepage.module.css"
 
 function Homepage(){
     
@@ -23,23 +24,30 @@ function Homepage(){
 
 
   },[])
-function populatePosts(data){
-  return data.posts.map(post=>{
-    return(
-      <PostCard 
-          key={post.id} 
-          id={post.id}
-          postName={post.title} 
-          date={post.publishedAt}
-        />
-    )
-  })
-}
+    function populatePosts(data){
+
+        return data.posts.map(post=>{
+            const newDate =new Date(post.publishedAt).toLocaleDateString("en-US", {
+                weekday: "short",   // Mon, Tue, ...
+                year: "numeric",    // 2026
+                month: "short",     // Mar
+                day: "numeric"      // 2
+            });
+            return(
+            <PostCard 
+            key={post.id} 
+            id={post.id}
+            postName={post.title} 
+            date={newDate}
+            />
+            )
+        })
+    }
     if(loading){
         return <Loading />
     }
     return(
-        <div className='postContainer'>
+        <div className={style.postContainer}>
             {populatePosts(blogData)}
         </div>
     )
