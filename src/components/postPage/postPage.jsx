@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom"
 import { Loading } from "../loading/load";
-
+import style from './postPage.module.css'
+import { CommentCard } from "../comment/comment";
 
 
 function PostPage(){
@@ -28,17 +29,14 @@ function PostPage(){
 
     },[])   
     const postObj = data.post[0];
-    console.log(postObj)
+
     if(loading){
         return <Loading />
     }
     return(
         <>
-            <h1>Post Page {id}</h1>
-            <Link to={'/'}>return home</Link>
-
-            <div className="post-container">
-                <div className="title-container">
+            <div className={style.postContainer}>
+                <div className={style.postHeader}>
                     <h1>{postObj.title}</h1> 
                     <h6>{postObj.updatedAt.toLocaleString('en-GB', {
                                     day: '2-digit',
@@ -50,6 +48,17 @@ function PostPage(){
                 </div>
                 
                 <p>{postObj.content}</p>
+            </div>
+            <div className={style.commentContainer}>
+                <h4>Comments:</h4>
+                <CommentCard post={postObj} />
+            </div>
+            <div>
+                <form>
+                    <label>comment:-</label>
+                    <input type="textarea"></input>
+                    <button>comment</button>
+                </form>
             </div>
             
 

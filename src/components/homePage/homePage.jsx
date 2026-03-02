@@ -1,13 +1,12 @@
-import { useState, useEffect } from 'react'
-import {TopNav} from './components/topnav/topnav.jsx'
-import { PostCard } from './components/postCard/post.jsx';
-import './App.css'
-import { Outlet } from 'react-router-dom';
+import { Loading } from "../loading/load";
+import { useState, useEffect } from "react";
+import { PostCard } from "../postCard/post";
 
-function App() {
+function Homepage(){
+    
+    const [blogData, setBlogData] = useState({posts: []});
+    const [loading, setLoading] = useState(true);
 
-  const [blogData, setBlogData] = useState({posts: []});
-  const [loading, setLoading] = useState(true);
     useEffect(()=>{
     fetch('https://blog-api-vdtu.onrender.com')
     .then(response=>{
@@ -36,13 +35,15 @@ function populatePosts(data){
     )
   })
 }
-  return (
-    <>
-      <TopNav/>
-      <Outlet />
-
-    </>
-  )
+    if(loading){
+        return <Loading />
+    }
+    return(
+        <div className='postContainer'>
+            {populatePosts(blogData)}
+        </div>
+    )
 }
-
-export default App
+export{
+    Homepage
+}

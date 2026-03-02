@@ -1,0 +1,12 @@
+.postContainer{
+    border-bottom: 1px solid black;
+    padding: 20px;
+}
+.postHeader{
+    border-bottom: 1px solid black;
+}
+.commentContainer{
+    background-color: rgb(243, 243, 243);
+    padding: 20px;
+    border-radius: 0px 0px 20px 20px;
+}
