@@ -26,14 +26,18 @@ function App() {
 function populatePosts(data){
   return data.posts.map(post=>{
     return(
-      <PostCard key={post.id} postName={post.title} date={post.publishedAt} />
+      <PostCard 
+          key={post.id} 
+          id={post.id}
+          postName={post.title} 
+          date={post.publishedAt}
+        />
     )
   })
 }
   return (
     <>
       <TopNav />
-
       <div className='postContainer'>
         {populatePosts(blogData)}
       </div>

@@ -5,6 +5,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { NotFound } from './components/404Page/notFound.jsx'
 import './index.css'
 import App from './App.jsx'
+import { PostPage } from './components/postPage/postPage.jsx'
 
 
 
@@ -13,12 +14,14 @@ import App from './App.jsx'
 const router =createBrowserRouter([
   { path: '/', element:<App />,
     children: [
-      //{ path: '/', element: <Home />},
+
       //{ path: 'Store', element: <Store />},
       //{ path: 'Cart', element: <Cart />},
     ],
     errorElement:<NotFound />},
-
+    { path: '/post/:id', 
+      element: <PostPage />, 
+      errorElement: <NotFound/>},
   //otherpages go here
 ])
 createRoot(document.getElementById('root')).render(
