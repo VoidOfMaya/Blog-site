@@ -19,5 +19,7 @@
     color: rgb(176, 176, 177);
 }
 .NavLinks{
+    display: flex;
     flex: 1;
+    gap: 5px;
 }

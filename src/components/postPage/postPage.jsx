@@ -27,7 +27,10 @@ function PostPage(){
         .catch(error => console.error(error))
         .finally(()=> {setLoading(false)});
 
-    },[])   
+    },[])
+    if(loading){
+        return <Loading />
+    }   
     const postObj = data.post[0];
     const newDate =new Date(postObj.updatedAt).toLocaleDateString("en-US", {
         weekday: "short",   // Mon, Tue, ...
@@ -35,9 +38,7 @@ function PostPage(){
         month: "short",     // Mar
         day: "numeric"      // 2
     });
-    if(loading){
-        return <Loading />
-    }
+
     return(
         <>
             <div className={style.postContainer}>

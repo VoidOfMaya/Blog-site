@@ -6,16 +6,11 @@ import { Outlet } from 'react-router-dom';
 
 function App() {
   const [user, setUser]= useState();
-  const [postId,setPostId] = useState('home')
-
-  const updateRoute =(id)=>{
-    setPostId(id)
-  }
 
   return (
     <>
-      <TopNav route={postId}/>
-      <Outlet context={{updateRoute}}/>
+      <TopNav/>
+      <Outlet />
 
     </>
   )
