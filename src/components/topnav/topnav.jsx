@@ -1,16 +1,13 @@
 import { NavLink,} from 'react-router-dom';
 import style from './topnav.module.css';
 
-const  logout = () =>{
-    
-}
 
-const ifUser =(user)=>{
+const ifUser =(user, logout)=>{
     if(user){
         return(
             <>
                 <NavLink to={'/'}>home</NavLink>
-                <div>log out</div>
+                <div onClick={()=>{logout()}}>log out</div>
                 <a>create Post</a>
             </>
         )
@@ -24,12 +21,12 @@ const ifUser =(user)=>{
         )            
     }
 }
-function TopNav({user}){
+function TopNav({user, logout}){
     return(
         <div className={style.topnav}>
             <h1 className={style.title}>DevLog <div className={style.titleRout}>/{user? user.firstName : ''} </div></h1>
             <div className={style.NavLinks}>
-                {ifUser(user)}
+                {ifUser(user,logout)}
             </div>
 
             

@@ -18,7 +18,8 @@ function App() {
     }
   });
   const onLogout= ()=>{
-
+    localStorage.clear();
+    setAuth({token: '', user: null});
   }
 
   const onLoginSuccess= (user, token) =>{
@@ -28,7 +29,7 @@ function App() {
 
   return (
     <>
-      <TopNav user={auth.user}/>
+      <TopNav user={auth.user} logout={onLogout}/>
       <Outlet  context={{user: auth.user, token: auth.token, onLoginSuccess}}/>
 
     </>
