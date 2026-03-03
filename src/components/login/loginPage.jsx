@@ -21,7 +21,7 @@ function LoginPage(){
             const data = await res.json();
             localStorage.setItem("token", data.user.token);
             localStorage.setItem("user", JSON.stringify(data.user.user));
-            console.log(data.user.user)
+
             onLoginSuccess(data.user.user, data.user.token) 
             redirectTo("/")           
         }catch(err){

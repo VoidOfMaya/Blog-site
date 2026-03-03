@@ -4,4 +4,6 @@
     border-radius: 10px;
     box-shadow: 0px 16px 24px -24px rgba(66, 68, 90, 1);
     margin-top: 10px;
+    max-width: 80%;
+    justify-self: center;
 }

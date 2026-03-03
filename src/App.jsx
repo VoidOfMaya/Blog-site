@@ -5,13 +5,9 @@ import './App.css'
 import { Outlet } from 'react-router-dom';
 
 function App() {
-  const [user, setUser]= useState(()=>{
-    const user = JSON.parse(localStorage.getItem("user"));
-    if(user){
-      return user
-    }else{
-      return null
-    }
+  const [auth, setAuth]= useState({
+    token: localStorage.getItem("token")|| '',
+    user: localStorage.getItem("user")|| null,
   });
   const [token, setToken]= useState(()=>{
     const token = localStorage.getItem("token");
@@ -21,16 +17,19 @@ function App() {
       return null
     }
   });
+  const onLogout= ()=>{
+
+  }
 
   const onLoginSuccess= (user, token) =>{
-    setUser(user);
-    setToken(token);
+    setAuth({token: token, user: user});
+    
   }
 
   return (
     <>
-      <TopNav user={user}/>
-      <Outlet  context={{user, token, onLoginSuccess}}/>
+      <TopNav user={auth.user}/>
+      <Outlet  context={{user: auth.user, token: auth.token, onLoginSuccess}}/>
 
     </>
   )

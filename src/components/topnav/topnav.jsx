@@ -1,13 +1,17 @@
 import { NavLink,} from 'react-router-dom';
 import style from './topnav.module.css';
 
+const  logout = () =>{
+    
+}
 
 const ifUser =(user)=>{
     if(user){
         return(
             <>
                 <NavLink to={'/'}>home</NavLink>
-                <NavLink>log out</NavLink>
+                <div>log out</div>
+                <a>create Post</a>
             </>
         )
 
