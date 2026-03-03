@@ -9,7 +9,7 @@ function CommentCard({post}){
             day: "numeric"      // 2
         });
         return(
-            <div className={style.commentCard}>
+            <div className={style.commentCard} key={comment.id}>
                 <p>{comment.content}</p>
                 <h6>{newDate}</h6>
             </div>

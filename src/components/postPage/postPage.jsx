@@ -1,32 +1,62 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom"
+import { useNavigate, useLocation, useParams, useOutletContext, replace } from "react-router-dom"
 import { Loading } from "../loading/load";
 import style from './postPage.module.css'
 import { CommentCard } from "../comment/comment";
 
 
 function PostPage(){
-
+    //state based
     const [data, setData] = useState({post: []});
+    const [comment, setComment]= useState({'content': ''})
     const [loading, setLoading] = useState(true);
 
+    //rout bassed 
+    const {token} = useOutletContext();
     const {id} = useParams();
+    const navigate = useNavigate();
+    const location = useLocation();
     
+    //data handling
+    const getData = async() =>{
+        try{
+            await  fetch(`https://blog-api-vdtu.onrender.com/${id}`)
+            .then(response=>{
+                if(response.status >= 400) {
+                    throw new Error('A server error has occured error code: ' + response.status )
+                }
+                return response.json();
+            })
+            .then( data =>{
+                setData(data)
+            })
+            .catch(error => console.error(error))
+            .finally(()=> {setLoading(false)});            
+        }catch(err){
+            console.log(err)
+        }
+
+    }
+    const handleNewComment = async(e)=>{
+        e.preventDefault();
+        try{
+            const res = await fetch(`https://blog-api-vdtu.onrender.com/${id}/comment`,{
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`,
+                },
+                body:JSON.stringify({"content": comment,}), 
+            })
+            console.log(res.json)
+            await getData();
+        }catch(err){
+            console.log(err);
+        }
+
+    }
     useEffect(()=>{
-
-         fetch(`https://blog-api-vdtu.onrender.com/${id}`)
-        .then(response=>{
-            if(response.status >= 400) {
-                throw new Error('A server error has occured error code: ' + response.status )
-            }
-            return response.json();
-        })
-        .then( data =>{
-            setData(data)
-        })
-        .catch(error => console.error(error))
-        .finally(()=> {setLoading(false)});
-
+        getData()
     },[])
     if(loading){
         return <Loading />
@@ -38,6 +68,7 @@ function PostPage(){
         month: "short",     // Mar
         day: "numeric"      // 2
     });
+
 
     return(
         <>
@@ -51,10 +82,13 @@ function PostPage(){
             </div>
             <div className={style.commentContainer}>
                 <h2>Comments:</h2>
-                <CommentCard post={postObj} />
+                <CommentCard post={postObj}/>
             </div>
             <div>
-                <form className={style.CommentForm}> 
+                <form 
+                className={style.CommentForm}
+                onSubmit={handleNewComment}
+                > 
                     <textarea 
                     name="comment" 
                     type="textarea"
@@ -63,6 +97,7 @@ function PostPage(){
                     className={style.commentInput}
                     max='500'
                     min='1'
+                    onChange={(e)=>setComment(e.target.value)}
                     >
                     </textarea>
                     <button className={style.commentButton}>comment</button>
