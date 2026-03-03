@@ -8,6 +8,7 @@ import App from './App.jsx'
 import { PostPage } from './components/postPage/postPage.jsx'
 import { Homepage } from './components/homePage/homePage.jsx'
 import { LoginPage } from './components/login/loginPage.jsx'
+import { SignupPage } from './components/signUpPAge/signupPage.jsx'
 
 
 
@@ -19,6 +20,7 @@ const router =createBrowserRouter([
     { path: '/', element: <Homepage />},
     { path: '/post/:id',element: <PostPage />},
     { path: '/login', element: <LoginPage />},
+    { path: '/signup', element: <SignupPage />},
     ],
     errorElement:<NotFound />},
 

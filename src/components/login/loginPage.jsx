@@ -1,6 +1,6 @@
 import { useState } from "react"
 import style from "./login.module.css"
-import { useOutletContext, useNavigate } from "react-router-dom"
+import { useOutletContext, useNavigate, Link } from "react-router-dom"
 function LoginPage(){
     const [emai, setEmail]= useState('')
     const [password, setPassword]= useState('')
@@ -45,11 +45,12 @@ function LoginPage(){
                     <input type="password" 
                            placeholder="password" 
                            required
-                           onChange={(e)=>setPassword(e.target.value)}
+                           onChange={(e)=>{setPassword(e.target.value)}
+                        }
                            ></input>
                     <button>log in</button>
                 </form>
-                <h5>dont have an account yet? <a>you can sign up here!</a></h5>
+                <h5 style={{marginTop: '15px'}}>dont have an account yet? <Link to={'/signup'} style={{color: 'blue'}}>you can sign up here!</Link></h5>
             </div>
 
         </main>

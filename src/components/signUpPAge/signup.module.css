@@ -1,0 +1,14 @@
+.signupContainer{
+    margin-top: 20px;
+    max-width: 700px;
+    justify-self: center;
+    align-self: center;
+}
+.invalidField{
+    outline: 2px solid red;
+    outline-offset: 2px;
+}
+.validField{
+    outline: 2px solid green;
+    outline-offset: 2px;
+}
