@@ -1,15 +1,29 @@
-import { Link, NavLink, useLocation } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import style from './topnav.module.css';
-import { useState } from "react";
 
+const ifUser =(user)=>{
+    if(user){
+        return(
+            <>
+                <NavLink>log out</NavLink>
+            </>
+        )
 
-function TopNav(){
-    return(
-        <div className={style.topnav}>
-            <h1 className={style.title}>DevLog <div className={style.titleRout}>/ </div></h1>
-            <div className={style.NavLinks}>
+    }else{
+        return(
+            <>
                 <NavLink to={'/'}>home</NavLink>
                 <NavLink to={'/login'}>Log in</NavLink>
+            </>
+        )            
+    }
+}
+function TopNav({user}){
+    return(
+        <div className={style.topnav}>
+            <h1 className={style.title}>DevLog <div className={style.titleRout}>/{user? user.firstName : ''} </div></h1>
+            <div className={style.NavLinks}>
+                {ifUser(user)}
             </div>
 
             

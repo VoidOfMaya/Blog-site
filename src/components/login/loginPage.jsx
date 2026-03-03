@@ -1,20 +1,34 @@
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import style from "./login.module.css"
+import { useOutletContext, useNavigate } from "react-router-dom"
 function LoginPage(){
     const [emai, setEmail]= useState('')
     const [password, setPassword]= useState('')
 
+    const {onLoginSuccess} = useOutletContext();
+    const redirectTo = useNavigate();
+
     const handleSubmit= async (e) =>{
         e.preventDefault();
-        const res = await fetch('https://blog-api-vdtu.onrender.com/auth/login',{
-            method: 'POST',
-            headers:{
-                "Content-Type": "application/json",
-            },
-            body:JSON.stringify({"email": emai, "password": password})
-        })
-        const data = await res.json();
-        console.log(data);
+        try{
+            const res = await fetch('https://blog-api-vdtu.onrender.com/auth/login',{
+                method: 'POST',
+                headers:{
+                    "Content-Type": "application/json",
+                },
+                body:JSON.stringify({"email": emai, "password": password})
+            })
+            const data = await res.json();
+            localStorage.setItem("token", data.user.token);
+            localStorage.setItem("user", JSON.stringify(data.user.user));
+            console.log(data.user.user)
+            onLoginSuccess(data.user.user, data.user.token) 
+            redirectTo("/")           
+        }catch(err){
+            console.log(err)
+        }
+
+
     }
     return(
         <main className={style.loginPage}>
