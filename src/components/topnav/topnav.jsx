@@ -1,10 +1,12 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink,} from 'react-router-dom';
 import style from './topnav.module.css';
+
 
 const ifUser =(user)=>{
     if(user){
         return(
             <>
+                <NavLink to={'/'}>home</NavLink>
                 <NavLink>log out</NavLink>
             </>
         )

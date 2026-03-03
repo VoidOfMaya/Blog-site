@@ -50,14 +50,22 @@ function PostPage(){
                 <p>{postObj.content}</p>
             </div>
             <div className={style.commentContainer}>
-                <h4>Comments:</h4>
+                <h2>Comments:</h2>
                 <CommentCard post={postObj} />
             </div>
             <div>
-                <form>
-                    <label>comment:-</label>
-                    <input type="textarea"></input>
-                    <button>comment</button>
+                <form className={style.CommentForm}> 
+                    <textarea 
+                    name="comment" 
+                    type="textarea"
+                    placeholder="add comment here ..." 
+                    required
+                    className={style.commentInput}
+                    max='500'
+                    min='1'
+                    >
+                    </textarea>
+                    <button className={style.commentButton}>comment</button>
                 </form>
             </div>
             
