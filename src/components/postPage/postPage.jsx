@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useLocation, useParams, useOutletContext, replace } from "react-router-dom"
+import { useNavigate, useLocation, useParams, useOutletContext, replace, Link } from "react-router-dom"
 import { Loading } from "../loading/load";
 import style from './postPage.module.css'
 import { CommentCard } from "../comment/comment";
@@ -12,7 +12,7 @@ function PostPage(){
     const [loading, setLoading] = useState(true);
 
     //rout bassed 
-    const {token} = useOutletContext();
+    const {token, user} = useOutletContext();
     const {id} = useParams();
     const navigate = useNavigate();
     const location = useLocation();
@@ -48,12 +48,43 @@ function PostPage(){
                 },
                 body:JSON.stringify({"content": comment,}), 
             })
-            console.log(res.json)
             await getData();
         }catch(err){
             console.log(err);
         }
 
+    }
+
+    //conditional renders
+    const ifUser = (user)=>{
+        if(user){
+            return(
+                <form 
+                className={style.CommentForm}
+                onSubmit={handleNewComment}
+                > 
+                    <textarea 
+                    name="comment" 
+                    type="textarea"
+                    placeholder="add comment here ..." 
+                    required
+                    className={style.commentInput}
+                    max='500'
+                    min='1'
+                    onChange={(e)=>setComment(e.target.value)}
+                    >
+                    </textarea>
+                    <button className={style.commentButton}>comment</button>
+                </form>
+            )
+        }else{
+            return(
+                <h4>have some thoughts you want to share? 
+                    <Link to={'/login'} style={{color: 'blue',}}> log in </Link> 
+                     and let us know what youre thinking about
+                </h4>
+            )
+        }
     }
     useEffect(()=>{
         getData()
@@ -85,23 +116,7 @@ function PostPage(){
                 <CommentCard post={postObj}/>
             </div>
             <div>
-                <form 
-                className={style.CommentForm}
-                onSubmit={handleNewComment}
-                > 
-                    <textarea 
-                    name="comment" 
-                    type="textarea"
-                    placeholder="add comment here ..." 
-                    required
-                    className={style.commentInput}
-                    max='500'
-                    min='1'
-                    onChange={(e)=>setComment(e.target.value)}
-                    >
-                    </textarea>
-                    <button className={style.commentButton}>comment</button>
-                </form>
+                {ifUser(user)}
             </div>
             
 
