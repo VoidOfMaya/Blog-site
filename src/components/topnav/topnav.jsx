@@ -6,17 +6,23 @@ const ifUser =(user, logout)=>{
     if(user){
         return(
             <>
-                <NavLink to={'/'}>home</NavLink>
-                <div onClick={()=>{logout()}}>log out</div>
-                <a>create Post</a>
+                <NavLink to={'/'} 
+                className={style.navButton}>home</NavLink>
+
+                <div onClick={()=>{logout()}} 
+                className={style.navButton}>log out</div>
+                
+                <a className={style.navButton}>Author dashboard</a>
             </>
         )
 
     }else{
         return(
             <>
-                <NavLink to={'/'}>home</NavLink>
-                <NavLink to={'/login'}>Log in</NavLink>
+                <NavLink to={'/'} 
+                className={style.navButton}>home</NavLink>
+                <NavLink to={'/login'} 
+                className={style.navButton}>Log in</NavLink>
             </>
         )            
     }

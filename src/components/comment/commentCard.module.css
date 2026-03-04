@@ -13,6 +13,7 @@
     'content buttons'
     'date  buttons'
     ;
+    gap: 10px;
 }
 .editComments{
     display: flex;
