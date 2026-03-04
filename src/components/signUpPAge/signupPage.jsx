@@ -9,7 +9,7 @@ function SignupPage(){
         firstName: null,
         lastName: null,
         password: null ,
-        confirmPassward: null,
+        confirmPassword: null,
     })
     
     const redirectTo = useNavigate();
@@ -18,21 +18,18 @@ function SignupPage(){
         console.log('submitting')
         console.log(data);
         try{
-            await fetch('https://blog-api-vdtu.onrender.com/auth/register',{
+            const res = await fetch('https://blog-api-vdtu.onrender.com/auth/register',{
                 method: 'POST',
                 headers:{
-                    "content-type": "json/application",
+                    "Content-Type": "application/json",
                 },
-                body:JSON.stringify({
-                    email: data.email,
-                    firstName: data.firstName,
-                    lastName: data.lastName,
-                    password: data.password ,
-                    confirmPassward: data.confirmPassward,
-
-                })
+                body:JSON.stringify(data)
             })
-            redirectTo('/login')
+            const result = await res.json();
+
+            if(!res.ok)return console.log('validaiton Errors: ', result )
+            console.log('registered successfully');
+            redirectTo('/login');
         }catch(err){
             console.log(err)
         }
@@ -73,7 +70,7 @@ function SignupPage(){
                             min='8'
                             required
                             onChange={(e)=>setData(prev=>({...prev, password: e.target.value}))}
-                            className={ data.password !== data.confirmPassward? style.invalidField : style.validField}
+                            className={ data.password !== data.confirmPassword? style.invalidField : style.validField}
                             ></input>
 
                     <label>Confirm password :</label>
@@ -81,8 +78,8 @@ function SignupPage(){
                             placeholder="confirmPassword"
                             min='8'
                             required
-                            onChange={(e)=>setData(prev=>({...prev, confirmPassward: e.target.value}))}
-                            className={ data.password !== data.confirmPassward? style.invalidField : style.validField}
+                            onChange={(e)=>setData(prev=>({...prev, confirmPassword: e.target.value}))}
+                            className={ data.password !== data.confirmPassword? style.invalidField : style.validField}
                             ></input>
                     
                     <button>Sign up!</button>
