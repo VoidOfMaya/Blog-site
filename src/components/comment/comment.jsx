@@ -32,12 +32,7 @@ function CommentCard({data, currentuser, token, updatePage}){
                                 <button type='button' onClick={deleteComemnt}>Delete</button>
                             </div>
                         </>
-                    )}
-
-                    {/*
-                    <button type='button' onClick={editComment}>Edit</button>
-                    <button type='button' onClick={deleteComemnt}>Delete</button> 
-                    */}                   
+                    )}                  
                 </div>
             )
         }
@@ -66,29 +61,33 @@ function CommentCard({data, currentuser, token, updatePage}){
 
     }
     const editComment = async(e) =>{
+        e.preventDefault();
+        if(data.content === editContent) return
         const res = await fetch(
-        `https://blog-api-vdtu.onrender.com/${data.postId}/comment/${data.id}`,
-        {
-            method: "PUT", // or PATCH depending on your API
-            headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`,
-            },
-            body: JSON.stringify({ content: editContent }),
-        }
+            `https://blog-api-vdtu.onrender.com/${data.postId}/comment/${data.id}`,
+            {
+                method: "PUT", // or PATCH depending on your API
+                headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`,
+                },
+                body: JSON.stringify({ content: editContent }),
+            }
         );
 
         if (res.ok) {
-        setIsEditing(false);
-        updatePage();
+            setIsEditing(false);
+            updatePage();
         }
     }
-
     return(
         <div className={style.commentCard}>
             {isUser(user)}
             { isEditing? (
-                    <textarea value={editContent} onChange={(e)=> setEditContent(e.target.value)}/>
+                    <textarea   value={editContent} 
+                                onChange={(e)=> setEditContent(e.target.value)}
+                                style={{border: "1px solid gray", borderRadius: '10px', padding: '5px'}}
+                                />
                 ):(
                     <p style={{gridArea: 'content'}}>{data.content}</p>
                 )
