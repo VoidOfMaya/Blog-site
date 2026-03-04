@@ -113,7 +113,7 @@ function PostPage(){
             </div>
             <div className={style.commentContainer}>
                 <h2>Comments:</h2>
-                <CommentCard post={postObj}/>
+                <CommentCard post={postObj} currentuser={user}/>
             </div>
             <div>
                 {ifUser(user)}
