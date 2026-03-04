@@ -10,8 +10,12 @@ function CommentCard({post}){
         });
         return(
             <div className={style.commentCard} key={comment.id}>
-                <p>{comment.content}</p>
-                <h6>{newDate}</h6>
+                <div className={style.editComments} style={{gridArea: 'buttons'}}>
+                    <button type='button' >Edit</button>
+                    <button type='button' >Delete</button>
+                </div>
+                <p style={{gridArea: 'content'}}>{comment.content}</p>
+                <h6 style={{gridArea: 'date'}}>{newDate}</h6>
             </div>
         )
     })
