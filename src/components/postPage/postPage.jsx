@@ -98,8 +98,18 @@ function PostPage(){
         month: "short",     // Mar
         day: "numeric"      // 2
     });
-
-
+    const comments = postObj.comments
+    const populateComments = () =>{
+        return comments.map(comment=>{
+            return(
+                <CommentCard key={comment.id}
+                             data={comment} 
+                             currentuser={user} 
+                             token={token} 
+                             updatePage={getData}/>
+            )
+        })
+    }
     return(
         <>
             <div className={style.postContainer}>
@@ -112,7 +122,7 @@ function PostPage(){
             </div>
             <div className={style.commentContainer}>
                 <h2>Comments:</h2>
-                <CommentCard post={postObj} currentuser={user} token={token} updatePage={getData}/>
+                {populateComments()}
             </div>
             <div>
                 {ifUser(user)}
