@@ -6,6 +6,7 @@
     margin-top: 10px;
     max-width: 80%;
     justify-self: center;
+    text-align: start;
     display: grid;
     grid-template: 4fr 1fr/ 4fr 1fr ;
     grid-template-areas:

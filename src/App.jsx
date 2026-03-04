@@ -9,14 +9,6 @@ function App() {
     token: localStorage.getItem("token")|| '',
     user: localStorage.getItem("user")|| null,
   });
-  const [token, setToken]= useState(()=>{
-    const token = localStorage.getItem("token");
-    if(token){
-      return token
-    }else{
-      return null
-    }
-  });
   const onLogout= ()=>{
     localStorage.clear();
     setAuth({token: '', user: null});

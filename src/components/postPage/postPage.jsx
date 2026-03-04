@@ -54,7 +54,6 @@ function PostPage(){
         }
 
     }
-
     //conditional renders
     const ifUser = (user)=>{
         if(user){
@@ -113,7 +112,7 @@ function PostPage(){
             </div>
             <div className={style.commentContainer}>
                 <h2>Comments:</h2>
-                <CommentCard post={postObj} currentuser={user}/>
+                <CommentCard post={postObj} currentuser={user} token={token} updatePage={getData}/>
             </div>
             <div>
                 {ifUser(user)}
