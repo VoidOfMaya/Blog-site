@@ -48,7 +48,10 @@ function Homepage(){
     }
     return(
         <div className={style.postContainer}>
-            {populatePosts(blogData)}
+            <div className={style.posts}>
+                {populatePosts(blogData)}                
+            </div>
+
         </div>
     )
 }

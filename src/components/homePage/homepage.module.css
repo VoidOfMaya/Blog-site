@@ -1,6 +1,16 @@
 .postContainer{
+    display: grid;
+    grid-template: 1fr 4fr 1fr/ 1fr 4fr 1fr;
+    grid-template-areas:
+    '. . .'
+    '. posts .'
+    '. . .' 
+    ;
+}
+.posts{
     margin-top: 20px;
     background-color: rgb(252, 252, 252);
     border-radius: 10px;
     padding: 5px;
+    grid-area: posts;
 }
