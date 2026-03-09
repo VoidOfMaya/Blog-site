@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useLocation, useParams, useOutletContext, replace, Link } from "react-router-dom"
+import { useParams, useOutletContext, Link } from "react-router-dom"
 import { Loading } from "../loading/load";
 import style from './postPage.module.css'
 import { CommentCard } from "../comment/comment";
@@ -12,13 +12,13 @@ function PostPage(){
     const [loading, setLoading] = useState(true);
 
     //rout bassed 
-    const {token, user} = useOutletContext();
+    const {token, user, callError} = useOutletContext();
     const {id} = useParams();
-    const navigate = useNavigate();
-    const location = useLocation();
+
     
     //data handling
     const getData = async() =>{
+        callError(null) 
         try{
             await  fetch(`https://blog-api-vdtu.onrender.com/${id}`)
             .then(response=>{
@@ -30,15 +30,18 @@ function PostPage(){
             .then( data =>{
                 setData(data)
             })
-            .catch(error => console.error(error))
+            .catch(error => {throw new Error(error)})
             .finally(()=> {setLoading(false)});            
         }catch(err){
-            console.log(err)
+            callError(err.message)
         }
 
     }
     const handleNewComment = async(e)=>{
+        
         e.preventDefault();
+        callError(null);
+         
         try{
             const res = await fetch(`https://blog-api-vdtu.onrender.com/${id}/comment`,{
                 method: 'POST',
@@ -50,7 +53,7 @@ function PostPage(){
             })
             await getData();
         }catch(err){
-            console.log(err);
+            callError(err.message)
         }
 
     }
@@ -118,7 +121,9 @@ function PostPage(){
                     <h6>{newDate}</h6>  
                 </div>
                 
-                <p>{postObj.content}</p>
+                <div className={style.postBody} dangerouslySetInnerHTML={{__html: postObj.content}}>
+                 
+                </div>
             </div>
             <div className={style.commentContainer}>
                 <h2>Comments:</h2>

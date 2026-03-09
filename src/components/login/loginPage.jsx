@@ -5,11 +5,12 @@ function LoginPage(){
     const [emai, setEmail]= useState('')
     const [password, setPassword]= useState('')
 
-    const {onLoginSuccess} = useOutletContext();
+    const {onLoginSuccess, callError} = useOutletContext();
     const redirectTo = useNavigate();
 
     const handleSubmit= async (e) =>{
         e.preventDefault();
+        callError(null) 
         try{
             const res = await fetch('https://blog-api-vdtu.onrender.com/auth/login',{
                 method: 'POST',
@@ -19,6 +20,11 @@ function LoginPage(){
                 body:JSON.stringify({"email": emai, "password": password})
             })
             const data = await res.json();
+            if(!data.status >= 400){
+                //throw new Error(data.error||"Login failed")
+                return console.log(`inside this body`)
+            }
+
             localStorage.setItem("token", data.user.token);
             localStorage.setItem("user", JSON.stringify(data.user.user));
 
@@ -26,6 +32,7 @@ function LoginPage(){
             redirectTo("/")           
         }catch(err){
             console.log(err)
+            callError(err.message)
         }
 
 

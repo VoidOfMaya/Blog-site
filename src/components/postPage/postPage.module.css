@@ -1,9 +1,15 @@
 .postContainer{
-    border-bottom: 1px solid black;
+    
     padding: 20px 0px 20px 0px;
 }
 .postHeader{
-    border-bottom: 1px solid black;
+    
+    text-align: start;
+    padding: 20px;
+}
+.postBody{
+    text-align: start;
+    padding: 20px ;
 }
 .commentContainer{
     background-color: rgb(243, 243, 243);

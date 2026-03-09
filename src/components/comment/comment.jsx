@@ -1,10 +1,11 @@
 import { useState } from 'react';
+import { useOutletContext } from 'react-router-dom'
 import style from './commentCard.module.css'
 
 function CommentCard({data, currentuser, token, updatePage}){
     const [isEditing, setIsEditing] = useState(false);
     const [editContent, setEditContent] = useState(data.content);
-
+    const { callError} = useOutletContext();
     const newDate =new Date(data.updatedAt).toLocaleDateString("en-US", {
             weekday: "short",   // Mon, Tue, ...
             year: "numeric",    // 2026
@@ -39,6 +40,7 @@ function CommentCard({data, currentuser, token, updatePage}){
     }
     const deleteComemnt = async(e) =>{
             e.preventDefault();
+            callError(null) 
             const confirmed = confirm("are you sure you wish to delete this comment?!")
             if(!confirmed) return;
             try{
@@ -62,22 +64,28 @@ function CommentCard({data, currentuser, token, updatePage}){
     }
     const editComment = async(e) =>{
         e.preventDefault();
-        if(data.content === editContent) return
-        const res = await fetch(
-            `https://blog-api-vdtu.onrender.com/${data.postId}/comment/${data.id}`,
-            {
-                method: "PUT", // or PATCH depending on your API
-                headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`,
-                },
-                body: JSON.stringify({ content: editContent }),
-            }
-        );
-
-        if (res.ok) {
-            setIsEditing(false);
-            updatePage();
+        callError(null) 
+        try {
+            if(data.content === editContent) throw new Error('no edits detected!')
+            await fetch(
+                `https://blog-api-vdtu.onrender.com/${data.postId}/comment/${data.id}`,
+                {
+                    method: "PUT", // or PATCH depending on your API
+                    headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`,
+                    },
+                    body: JSON.stringify({ content: editContent }),
+                }
+            )
+            .then(response=>{
+                if(!response.ok) throw new Error('failed to Edit comment')
+                
+                setIsEditing(false);
+                updatePage();
+            })        
+        } catch (err) {
+            callError(err.message)
         }
     }
     return(

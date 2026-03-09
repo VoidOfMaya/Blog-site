@@ -2,26 +2,32 @@ import { Loading } from "../loading/load";
 import { useState, useEffect } from "react";
 import { PostCard } from "../postCard/post";
 import style from "./homepage.module.css"
+import { useOutletContext } from "react-router-dom"
 
 function Homepage(){
-    
+    const {callError} = useOutletContext();
     const [blogData, setBlogData] = useState({posts: []});
     const [loading, setLoading] = useState(true);
 
     useEffect(()=>{
-    fetch('https://blog-api-vdtu.onrender.com')
-    .then(response=>{
-      if(response.status >= 400) {
-          throw new Error('A server error has occured error code: ' + response.status )
-      }
-      return response.json();
-      })
-    .then( data =>{
-      setBlogData(data)
-    })
-    .catch(error => console.error(error))
-    .finally(()=> {setLoading(false)});
+        callError(null) 
+        try{
+            fetch('https://blog-api-vdtu.onrender.com')
+            .then(response=>{
+            if(response.status >= 400) {
+                throw new Error('A server error has occured error code: ' + response.status )
+            }
+            return response.json();
+            })
+            .then( data =>{
+                setBlogData(data)
+            })
+            .catch(error => {throw new Error(error)})
+            .finally(()=> {setLoading(false)});
 
+        }catch(err){
+            callError(err.message)
+        }
 
   },[])
     function populatePosts(data){

@@ -1,9 +1,9 @@
 
 import { useState } from 'react';
 import style from './signup.module.css'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useOutletContext } from 'react-router-dom';
 function SignupPage(){
-
+    const {callError} = useOutletContext();
     const [data, setData] = useState({
         email: null,
         firstName: null,
@@ -17,6 +17,7 @@ function SignupPage(){
         e.preventDefault();
         console.log('submitting')
         console.log(data);
+        callError(null) 
         try{
             const res = await fetch('https://blog-api-vdtu.onrender.com/auth/register',{
                 method: 'POST',
@@ -27,11 +28,11 @@ function SignupPage(){
             })
             const result = await res.json();
 
-            if(!res.ok)return console.log('validaiton Errors: ', result )
+            if(!res.ok)throw new Error(`valErrors: ${result.error}`|| 'Request error')
             console.log('registered successfully');
             redirectTo('/login');
         }catch(err){
-            console.log(err)
+           callError(err.message) 
         }
     }
 
