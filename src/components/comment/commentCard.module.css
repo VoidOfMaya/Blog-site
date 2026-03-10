@@ -8,8 +8,9 @@
     justify-self: center;
     text-align: start;
     display: grid;
-    grid-template: 4fr 1fr/ 4fr 1fr ;
+    grid-template: 1fr 4fr 1fr/ 4fr 1fr ;
     grid-template-areas:
+    'author buttons'
     'content buttons'
     'date  buttons'
     ;

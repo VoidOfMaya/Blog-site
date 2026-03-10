@@ -103,24 +103,34 @@ function PostPage(){
         month: "short",     // Mar
         day: "numeric"      // 2
     });
+    const authorName = `${postObj.author.firstName} ${postObj.author.lastName}`
+
     const comments = postObj.comments
     const populateComments = () =>{
         return comments.map(comment=>{
+            const commentAuthor = `${comment.author.firstName} ${comment.author.lastName}`
             return(
                 <CommentCard key={comment.id}
                              data={comment} 
                              currentuser={user} 
                              token={token} 
-                             updatePage={getData}/>
+                             updatePage={getData}
+                             author ={commentAuthor}
+                             />
             )
         })
     }
+    
     return(
         <>
             <div className={style.postContainer}>
                 <div className={style.postHeader}>
-                    <h1>{postObj.title}</h1> 
-                    <h5>{newDate}</h5>  
+                    <h1>
+                        {postObj.title}
+                        <p style={{display: 'inline',textAlign:"end",color:"gray"}}>@{authorName}</p>
+                    </h1> 
+                    
+                    <h4 style={{color: 'gray'}}>{newDate}</h4>  
                 </div>
                 
                 <div className={style.postBody} dangerouslySetInnerHTML={{__html: postObj.content}}>

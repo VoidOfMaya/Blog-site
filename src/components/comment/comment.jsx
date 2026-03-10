@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useOutletContext } from 'react-router-dom'
 import style from './commentCard.module.css'
 
-function CommentCard({data, currentuser, token, updatePage}){
+function CommentCard({data, currentuser, token, updatePage, author}){
     const [isEditing, setIsEditing] = useState(false);
     const [editContent, setEditContent] = useState(data.content);
     const { callError} = useOutletContext();
@@ -12,7 +12,7 @@ function CommentCard({data, currentuser, token, updatePage}){
             month: "short",     // Mar
             day: "numeric"      // 2
     });
-    const user = JSON.parse(currentuser)
+    const user = currentuser
     const isUser = (user) =>{
         if (user === null) return
         if( user.id === data.userId){
@@ -97,10 +97,16 @@ function CommentCard({data, currentuser, token, updatePage}){
                                 style={{border: "1px solid gray", borderRadius: '10px', padding: '5px'}}
                                 />
                 ):(
-                    <p style={{gridArea: 'content'}}>{data.content}</p>
+                    <>
+                        <h4 style={{gridArea: 'author'}}>@{author}</h4>
+                        <p style={{gridArea: 'content'}}>{data.content}</p>
+                    </>
                 )
             }
-            <h6 style={{gridArea: 'date'}}>{newDate}</h6>
+
+            <h6 style={{gridArea: 'date'}}>{newDate}</h6>  
+ 
+
         </div>
     )
 }

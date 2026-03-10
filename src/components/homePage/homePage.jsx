@@ -32,7 +32,7 @@ function Homepage(){
 
   },[])
     function populatePosts(data){
-
+        
         return data.posts.map(post=>{
             const newDate =new Date(post.publishedAt).toLocaleDateString("en-US", {
                 weekday: "short",   // Mon, Tue, ...
@@ -40,12 +40,15 @@ function Homepage(){
                 month: "short",     // Mar
                 day: "numeric"      // 2
             });
+            const authorName = `${post.author.firstName} ${post.author.lastName}`
             return(
             <PostCard 
             key={post.id} 
             id={post.id}
             postName={post.title} 
             date={newDate}
+            author={authorName}
+            preview={post.content}
             />
             )
         })
