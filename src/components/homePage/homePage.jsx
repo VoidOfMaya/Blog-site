@@ -54,7 +54,7 @@ function Homepage(){
         })
     }
     if(loading){
-        return <Loading />
+        return <Loading/>
     }
     return(
         <div className={style.postContainer}>

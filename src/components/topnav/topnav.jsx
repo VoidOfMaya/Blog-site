@@ -46,7 +46,11 @@ function TopNav({user, logout}){
 
                 {isMobile?(
                     <div onClick={()=> setActive(!active)}>
-                        <img src={menuIcon} style={{width: '60px', justifySelf: 'end'}}></img> 
+                        <img src={menuIcon} 
+                        style={{width: '60px', 
+                                justifySelf: 'end', 
+                                position: 'relative'
+                                }}></img> 
                         <div style={active? {display: 'block'}:{display: 'none'}}>
                             {ifUser(user,logout,isMobile)}
                         </div>

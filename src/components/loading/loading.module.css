@@ -5,7 +5,7 @@ align-self: center;
 justify-self: center;
 }
 .loader{
-
+    display: flex;
     justify-self: center;
     height: 50px;
     width: 50px;
