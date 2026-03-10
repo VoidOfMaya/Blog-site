@@ -10,16 +10,19 @@
 .postBody{
     text-align: start;
     padding: 20px ;
+    font-size: 20px;
 }
 .commentContainer{
     background-color: rgb(243, 243, 243);
     padding: 20px;
     border-radius: 0px 0px 20px 20px;
+    
 }
 .CommentForm{
     height: 100px;
-    margin-top: 20px;
-    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 120px;
+    padding: 20px;
     border-radius: 10px;
     justify-self: center;
     text-align: start;

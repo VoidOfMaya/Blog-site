@@ -64,6 +64,7 @@ function PostPage(){
                 <form 
                 className={style.CommentForm}
                 onSubmit={handleNewComment}
+                style={{marginBottom: '2em'}}
                 > 
                     <textarea 
                     name="comment" 
