@@ -21,9 +21,22 @@
     display: inline;
     color: rgb(176, 176, 177);
 }
-.NavLinks{
-    justify-content: end;
+.menuToggle {
     display: flex;
+    justify-content: flex-end;  
+    align-items: center;
+    width: 100%;                
+}
+
+.menuIcon {
+    width: 40px;
+    height: 40px;
+    display: block;           
+}
+.NavLinks{
+    position: relative;
+    display: flex;
+    justify-content: end;
     flex: 2;
 
     gap: 5px;
@@ -41,6 +54,8 @@
     transform: scale(1.2);
     z-index: 1;
 }
+
+
 .isPhone{
     display: flex;
     flex-direction: column;
