@@ -5,7 +5,7 @@ import style from "./homepage.module.css"
 import { useOutletContext } from "react-router-dom"
 
 function Homepage(){
-    const {callError} = useOutletContext();
+    const {callError, authHandler} = useOutletContext();
     const [blogData, setBlogData] = useState({posts: []});
     const [loading, setLoading] = useState(true);
 
@@ -14,6 +14,7 @@ function Homepage(){
         try{
             fetch('https://blog-api-vdtu.onrender.com')
             .then(response=>{
+            authHandler(response.status);
             if(response.status >= 400) {
                 throw new Error('A server error has occured error code: ' + response.status )
             }

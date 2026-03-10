@@ -12,7 +12,7 @@ function PostPage(){
     const [loading, setLoading] = useState(true);
 
     //rout bassed 
-    const {token, user, callError} = useOutletContext();
+    const {token, user, callError, authHandler} = useOutletContext();
     const {id} = useParams();
 
     
@@ -22,6 +22,7 @@ function PostPage(){
         try{
             await  fetch(`https://blog-api-vdtu.onrender.com/${id}`)
             .then(response=>{
+                authHandler(response.status)
                 if(response.status >= 400) {
                     throw new Error('A server error has occured error code: ' + response.status )
                 }
@@ -119,7 +120,7 @@ function PostPage(){
             <div className={style.postContainer}>
                 <div className={style.postHeader}>
                     <h1>{postObj.title}</h1> 
-                    <h6>{newDate}</h6>  
+                    <h5>{newDate}</h5>  
                 </div>
                 
                 <div className={style.postBody} dangerouslySetInnerHTML={{__html: postObj.content}}>

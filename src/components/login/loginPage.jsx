@@ -1,17 +1,20 @@
 import { useState } from "react"
 import style from "./login.module.css"
 import { useOutletContext, useNavigate, Link } from "react-router-dom"
+import { ButtonLoading } from '../loading/load.jsx'
 function LoginPage(){
     const [emai, setEmail]= useState('')
     const [password, setPassword]= useState('')
+    const [isLoading, setIsLoading]= useState(false);
 
     const {onLoginSuccess, callError} = useOutletContext();
     const redirectTo = useNavigate();
 
     const handleSubmit= async (e) =>{
         e.preventDefault();
-        callError(null) 
+        callError(null);
         try{
+            setIsLoading(true)
             const res = await fetch('https://blog-api-vdtu.onrender.com/auth/login',{
                 method: 'POST',
                 headers:{
@@ -19,23 +22,25 @@ function LoginPage(){
                 },
                 body:JSON.stringify({"email": emai, "password": password})
             })
+             //handles invalid data if error object is present
             const data = await res.json();
-            if(!data.status >= 400){
-                //throw new Error(data.error||"Login failed")
-                return console.log(`inside this body`)
-            }
+            if(!res.ok) throw new Error (data.error ||"Login failed")
 
+            //handels  valid user thats not an author
+             if(!data.user.token){
+                throw new Error("Login failed: user does not exist")
+             }
             localStorage.setItem("token", data.user.token);
-            localStorage.setItem("user", JSON.stringify(data.user.user));
+            localStorage.setItem("user", JSON.stringify(data.user.user));                
 
-            onLoginSuccess(data.user.user, data.user.token) 
-            redirectTo("/")           
+            onLoginSuccess(data.user.user, data.user.token)  
+            redirectTo('/');
         }catch(err){
             console.log(err)
             callError(err.message)
         }
-
-
+    
+    setIsLoading(false);
     }
     return(
         <main className={style.loginPage}>
@@ -55,7 +60,15 @@ function LoginPage(){
                            onChange={(e)=>{setPassword(e.target.value)}
                         }
                            ></input>
-                    <button>log in</button>
+                    {isLoading ? (
+                        <>
+                            <ButtonLoading />
+                        </>
+                    ):(
+                        <>
+                            <button>log in</button>                                
+                        </>
+                    )}
                 </form>
                 <h5 style={{marginTop: '15px'}}>dont have an account yet? <Link to={'/signup'} style={{color: 'blue'}}>you can sign up here!</Link></h5>
             </div>

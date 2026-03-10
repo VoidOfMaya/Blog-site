@@ -9,7 +9,7 @@ function App() {
   const [error, setError]= useState(null)
   const [auth, setAuth]= useState({
     token: localStorage.getItem("token")|| '',
-    user: localStorage.getItem("user")|| null,
+    user: JSON.parse(localStorage.getItem("user"))|| null,
   });
 
   const redirectTo = useNavigate();
@@ -21,7 +21,6 @@ function App() {
 
   const onLoginSuccess= (user, token) =>{
     setAuth({token: token, user: user});
-    redirectTo('/');
   }
   //keynote: call error should be called twice on each request
   //1st: at the start befor the fetch api and with null passed to it
@@ -31,7 +30,12 @@ function App() {
   const callError =(msg)=>{
     setError(msg)
   }
-
+  const authHandler = (code) =>{
+    if (code === 401){
+      localStorage.clear();
+      setAuth({token: '', user: null})
+    }
+  }
   return (
     <>
       <TopNav user={auth.user} logout={onLogout}/>
@@ -39,6 +43,7 @@ function App() {
         user: auth.user, 
         token: auth.token, 
         onLoginSuccess,
+        authHandler,
         callError,
         }}/>
       {error && <ErrorMsg message={error} />}

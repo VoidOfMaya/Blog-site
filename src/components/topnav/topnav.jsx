@@ -1,11 +1,23 @@
 import { NavLink,} from 'react-router-dom';
 import style from './topnav.module.css';
+import menuIcon from '../../assets/icons/menu.svg'
 
-
+const isPhone =()=>{
+    const screen = window.innerWidth;
+    screen <= 768? (
+       <>
+        <img src='../../assets/icons/menu.svg' alt="" />
+       </> 
+    ):(
+        <>
+        </>
+    );
+}
 const ifUser =(user, logout)=>{
     if(user){
         return(
             <>
+                {isPhone()}
                 <NavLink to={'/'} 
                 className={style.navButton}>home</NavLink>
 
@@ -28,10 +40,9 @@ const ifUser =(user, logout)=>{
     }
 }
 function TopNav({user, logout}){
-    const userdata = JSON.parse(user) || user
     return(
         <div className={style.topnav}>
-            <h1 className={style.title}>DevLog <div className={style.titleRout}>/{user? userdata.firstName : ''} </div></h1>
+            <h1 className={style.title}>DevLog <div className={style.titleRout}>/{user? user.firstName : ''} </div></h1>
             <div className={style.NavLinks}>
                 {ifUser(user,logout)}
             </div>
