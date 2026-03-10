@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import {TopNav} from './components/topnav/topnav.jsx'
-import { ErrorMsg } from '../../Author-dashboard/src/Components/usefullError/usefullErr.jsx';
+import { ErrorMsg } from './components/usefullError/usefullErr.jsx';
 import './App.css'
 import { Outlet, useNavigate } from 'react-router-dom';
 
