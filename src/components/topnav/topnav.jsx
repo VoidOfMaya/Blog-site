@@ -13,7 +13,7 @@ const ifUser =(user, logout, state)=>{
                 <div onClick={()=>{logout()}} 
                 className={style.navButton}>log out</div>
                 
-                <a className={style.navButton}>Author dashboard</a>
+                <a className={style.navButton} href='https://the-dev-dash.netlify.app/'>Author dashboard</a>
             </div>
         )
 
