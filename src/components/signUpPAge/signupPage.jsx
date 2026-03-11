@@ -11,8 +11,10 @@ function SignupPage(){
         password: null ,
         confirmPassword: null,
     })
+    const [isLoading, setIsLoading]= useState(false);
     
     const redirectTo = useNavigate();
+    setIsLoading(true)
     const signup = async(e) => {
         e.preventDefault();
         console.log('submitting')
@@ -29,10 +31,11 @@ function SignupPage(){
             const result = await res.json();
 
             if(!res.ok)throw new Error(`valErrors: ${result.error}`|| 'Request error')
-            console.log('registered successfully');
+            setIsLoading(false)
             redirectTo('/login');
         }catch(err){
-           callError(err.message) 
+           callError(err.message)
+           setIsLoading(false) 
         }
     }
 
@@ -83,7 +86,15 @@ function SignupPage(){
                             className={ data.password !== data.confirmPassword? style.invalidField : style.validField}
                             ></input>
                     
-                    <button>Sign up!</button>
+                    {isLoading ? (
+                        <>
+                            <ButtonLoading />
+                        </>
+                    ):(
+                        <>
+                            <button>Sign up!</button>                                
+                        </>
+                    )}
                 </form>                   
             </div>
      
