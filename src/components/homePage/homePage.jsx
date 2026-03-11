@@ -12,7 +12,7 @@ function Homepage(){
     useEffect(()=>{
         callError(null) 
         try{
-            fetch(`${import.meta.VITE_API_URL}`)
+            fetch(`${import.meta.env.VITE_API_URL}`)
             .then(response=>{
             authHandler(response.status);
             if(response.status >= 400) {

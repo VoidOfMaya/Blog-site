@@ -20,7 +20,7 @@ function PostPage(){
     const getData = async() =>{
         callError(null) 
         try{
-            await  fetch(`${import.meta.VITE_API_URL}/${id}`)
+            await  fetch(`${import.meta.env.VITE_API_URL}/${id}`)
             .then(response=>{
                 authHandler(response.status)
                 if(response.status >= 400) {
@@ -44,7 +44,7 @@ function PostPage(){
         callError(null);
          
         try{
-            const res = await fetch(`${import.meta.VITE_API_URL}/${id}/comment`,{
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/${id}/comment`,{
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json",
