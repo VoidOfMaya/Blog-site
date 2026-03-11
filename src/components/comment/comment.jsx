@@ -44,7 +44,7 @@ function CommentCard({data, currentuser, token, updatePage, author}){
             const confirmed = confirm("are you sure you wish to delete this comment?!")
             if(!confirmed) return;
             try{
-                const res = await fetch(`https://blog-api-vdtu.onrender.com/${data.postId}/comment/${data.id}`,{
+                const res = await fetch(`${import.meta.VITE_API_URL}/${data.postId}/comment/${data.id}`,{
                     method: 'DELETE',
                     headers: {
                         "Content-Type": "application/json",
@@ -68,7 +68,7 @@ function CommentCard({data, currentuser, token, updatePage, author}){
         try {
             if(data.content === editContent) throw new Error('no edits detected!')
             await fetch(
-                `https://blog-api-vdtu.onrender.com/${data.postId}/comment/${data.id}`,
+                `${import.meta.VITE_API_URL}/${data.postId}/comment/${data.id}`,
                 {
                     method: "PUT", // or PATCH depending on your API
                     headers: {

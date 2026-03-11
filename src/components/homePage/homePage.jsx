@@ -12,7 +12,7 @@ function Homepage(){
     useEffect(()=>{
         callError(null) 
         try{
-            fetch('https://blog-api-vdtu.onrender.com')
+            fetch(`${import.meta.VITE_API_URL}`)
             .then(response=>{
             authHandler(response.status);
             if(response.status >= 400) {
