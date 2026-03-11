@@ -45,9 +45,13 @@ function TopNav({user, logout}){
             <div className={style.NavLinks}>
 
                 {isMobile?(
-                    <div onClick={()=> setActive(!active)} className={style.menuToggle}>
-                        <img src={menuIcon} className={style.menuIcon}></img> 
-                        <div style={active? {display: 'block'}:{display: 'none'}}>
+                    <div >
+                        <img src={menuIcon} 
+                             className={style.menuIcon}
+                             onClick={()=> setActive(!active)}>
+                        </img> 
+                        <div style={active? {display: 'block'}:{display: 'none'}}
+                             className={style.menuToggle}>
                             {ifUser(user,logout,isMobile)}
                         </div>
                     </div>
