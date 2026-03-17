@@ -14,9 +14,10 @@ function SignupPage(){
     const [isLoading, setIsLoading]= useState(false);
     
     const redirectTo = useNavigate();
-    setIsLoading(true)
+
     const signup = async(e) => {
         e.preventDefault();
+        setIsLoading(true)
         console.log('submitting')
         console.log(data);
         callError(null) 
@@ -44,7 +45,7 @@ function SignupPage(){
             <div className={style.signupContainer}>
                 <form onSubmit={signup}>
                     <label>Email :</label>
-                    <input  type='emaild' 
+                    <input  type='email' 
                             placeholder="email"
                             onChange={(e)=>setData(prev=>({...prev, email: e.target.value}))}
                             required
