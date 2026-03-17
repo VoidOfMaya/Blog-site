@@ -2,15 +2,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 html, body{
 min-height: 100%;
-max-height: fit-content;
+max-height: auto;
 background-color: rgb(238, 236, 236);
 font-family: roboto-vlogger ;
 display: flex;
 justify-content: center;
 
-}
-body{
-    max-height: auto;
 }
 #root {
     max-width: 1280px;
