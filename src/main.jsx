@@ -28,9 +28,6 @@ const router =createBrowserRouter([
 ])
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <HashRouter>
-      <App />
-    </HashRouter>
-    {/*<RouterProvider router={router} />*/}
+    <RouterProvider router={router} />
   </StrictMode>,
 )
