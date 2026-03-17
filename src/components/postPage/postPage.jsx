@@ -141,7 +141,7 @@ function PostPage(){
                 <h2>Comments:</h2>
                 {populateComments()}
             </div>
-            <div>
+            <div style={{display: 'grid'}}>
                 {ifUser(user)}
             </div>
             

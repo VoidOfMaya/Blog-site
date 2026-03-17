@@ -41,7 +41,7 @@ function SignupPage(){
     }
 
     return(
-        <>
+        <div className={style.signupPage}>
             <div className={style.signupContainer}>
                 <form onSubmit={signup}>
                     <label>Email :</label>
@@ -99,7 +99,7 @@ function SignupPage(){
                 </form>                   
             </div>
      
-        </>
+        </div>
 
     )
 }

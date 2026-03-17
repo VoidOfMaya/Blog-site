@@ -16,6 +16,8 @@
     background-color: rgb(243, 243, 243);
     padding: 20px;
     border-radius: 0px 0px 20px 20px;
+    display: grid;
+
     
 }
 .CommentForm{
