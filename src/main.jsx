@@ -1,6 +1,6 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { createBrowserRouter, RouterProvider, HashRouter} from 'react-router-dom'
 
 import { NotFound } from './components/404Page/notFound.jsx'
 import './index.css'
@@ -28,6 +28,9 @@ const router =createBrowserRouter([
 ])
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <HashRouter>
+      <App />
+    </HashRouter>
+    {/*<RouterProvider router={router} />*/}
   </StrictMode>,
 )
