@@ -38,7 +38,6 @@ function SignupPage(){
                     console.log(err.msg)
                     throw new Error(err.msg || "could not register")
                 })
-                //throw new Error(result.error)
             }
             setIsLoading(false)
             redirectTo('/login');
