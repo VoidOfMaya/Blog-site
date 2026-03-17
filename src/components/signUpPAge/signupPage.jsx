@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import style from './signup.module.css'
 import { useNavigate, useOutletContext } from 'react-router-dom';
+import {ButtonLoading} from '../loading/load.jsx'
 function SignupPage(){
     const {callError} = useOutletContext();
     const [data, setData] = useState({
@@ -31,10 +32,19 @@ function SignupPage(){
             })
             const result = await res.json();
 
-            if(!res.ok)throw new Error(`valErrors: ${result.error}`|| 'Request error')
+            if(!res.ok){
+                console.log(result.error)
+                result.error.forEach(err =>{
+                    console.log(err.msg)
+                    throw new Error(err.msg || "could not register")
+                })
+                //throw new Error(result.error)
+            }
             setIsLoading(false)
             redirectTo('/login');
         }catch(err){
+            console.log('ERROR BODY')
+            console.log(err)
            callError(err.message)
            setIsLoading(false) 
         }
